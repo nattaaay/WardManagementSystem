@@ -3,10 +3,6 @@ import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   BellIcon,
-  CalendarIcon,
-  ChartPieIcon,
-  DocumentDuplicateIcon,
-  FolderIcon,
   UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
@@ -16,6 +12,7 @@ import {
 } from "@heroicons/react/20/solid";
 import { roles } from "../Constant/Constant";
 import { useNavigate } from "react-router-dom";
+import Teams from "../Pages/Teams";
 
 const navigation = [
   { name: "Team", href: "#", icon: UsersIcon, current: false },
@@ -33,7 +30,7 @@ export default function Sidebar() {
   const navigate = useNavigate();
 
   const name = localStorage.getItem("username");
-  const employeeId = localStorage.getItem("emplyees_role");
+  const employeeId = localStorage.getItem("employees_role");
 
   console.log("hello", employeeId, name);
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -184,7 +181,6 @@ export default function Sidebar() {
 
         {/* Static sidebar for desktop */}
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-          {/* I don't really like this sidebar component. Let's deal with this later!!! */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4">
             <div className="flex h-16 shrink-0 items-center">
               <img
@@ -364,7 +360,9 @@ export default function Sidebar() {
           </div>
 
           <main className="py-10">
-            <div className="px-4 sm:px-6 lg:px-8">test test blah blah</div>
+            <div className="px-4 sm:px-6 lg:px-8">
+              <Teams />
+            </div>
           </main>
         </div>
       </div>

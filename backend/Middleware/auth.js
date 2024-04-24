@@ -1,5 +1,6 @@
 // Middleware to authenticate JWT token
 function authenticateToken(req, res, next) {
+  // get the authorization header from the request
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
 

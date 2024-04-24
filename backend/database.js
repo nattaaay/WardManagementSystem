@@ -1,7 +1,9 @@
 const { Client } = require("pg");
+//1 NEW INFORMATION --> mvc model? learn more about this later
+// (model, view (FE), controller(function itself))
 
 const client = new Client({
-  user: "postgres",
+  user: "natashaishak",
   password: "123456",
   host: "localhost",
   port: "5432",
