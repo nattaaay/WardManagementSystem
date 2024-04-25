@@ -4,6 +4,7 @@ const client = require("../database");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
+//env
 const JWT_SECRET =
   "6IrQi6OEKps42Y34p9dH0rwqTP59h03P5sFBWk2U4kdsEOHBmibIjtcfxQZVZjTqa1CEMdCPZ4rFdJ50TqweKTYCbEO8HXTbyBfr";
 
@@ -58,11 +59,30 @@ const Login = async (req, res) => {
     }
 
     //generating a JWT with the 'username' of the logged-in user
-    const token = jwt.sign({ username: user.rows[0].username }, JWT_SECRET);
+    // const token = jwt.sign({ username: user.rows[0].username }, JWT_SECRET);
+    //find out why the username thing
+
+    // const payload = { username: user.rows[0].username };
+    // const token = jwt.sign(payload, JWT_SECRET);
+
+    const JWT_SECRET = process.env.JWT_SECRET;
+
+    const claims = {
+      username: user.rows[0].username,
+    };
+    const access = jwt.sign(claims, process.env.ACCESS_SECRET, {
+      expiresIn: "20m",
+      jwtid: uuidv4(),
+    });
+    const refresh = jwt.sign(claims, process.env.REFRESH_SECRET, {
+      expiresIn: "30D",
+      jwtid: uuidv4(),
+    });
+    res.json({ access, refresh });
 
     res.json({
       statusCode: 200,
-      message: "Succsessful",
+      message: "Successful",
       token,
       user: user.rows,
     });

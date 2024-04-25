@@ -29,7 +29,7 @@ const deleteUser = async (req, res) => {
   }
 };
 
-//updating a user's information
+//updating a user's information  //injection thing. to find out about it later.
 const updateUser = async (req, res) => {
   try {
     const { username, employees_role_id, contact_number, id } = req.body;
