@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { BASE_URL } from "../Constant/Constant";
@@ -10,11 +11,12 @@ export default function UpdateTeams({ open, setOpen, updateData, fetchUsers }) {
     updateData?.contact_number
   );
   const [roles, setRoles] = useState(updateData?.employees_role);
-
+  const [loading, setLoading] = useState(false);
   const handleAddNewUser = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(`${BASE_URL}/updateUser`, {
+      setLoading(true);
+      await fetch(`${BASE_URL}/updateUser`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,7 +29,7 @@ export default function UpdateTeams({ open, setOpen, updateData, fetchUsers }) {
         }),
       });
 
-      //   const data = await response.json();
+      setLoading(false);
       setOpen(false);
       fetchUsers();
 
@@ -72,6 +74,10 @@ export default function UpdateTeams({ open, setOpen, updateData, fetchUsers }) {
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                 <form onSubmit={handleAddNewUser}>
+                  <h1 className="mb-3 text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+                    Update team member
+                  </h1>
+
                   <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       User name
@@ -119,13 +125,19 @@ export default function UpdateTeams({ open, setOpen, updateData, fetchUsers }) {
                     </select>
                   </div>
                   <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-                    <button
-                      type="submit"
-                      className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
-                      //   onClick={() => setOpen(false)}
-                    >
-                      Add User
-                    </button>
+                    {loading ? (
+                      <button className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto">
+                        Loading...
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+                      >
+                        Add User
+                      </button>
+                    )}
+
                     <button
                       type="button"
                       className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"

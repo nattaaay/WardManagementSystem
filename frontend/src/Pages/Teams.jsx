@@ -135,7 +135,7 @@ export default function Teams() {
           </div>
         </div>
       </div>
-      <AddNewTeam open={open} setOpen={setOpen} />
+      <AddNewTeam open={open} setOpen={setOpen} fetchUsers={fetchUsers} />
       {updateData && (
         <UpdateTeams
           open={updateOpen}
