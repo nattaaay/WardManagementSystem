@@ -60,29 +60,6 @@ const Login = async (req, res) => {
 
     //generating a JWT with the 'username' of the logged-in user
     const token = jwt.sign({ username: user.rows[0].username }, JWT_SECRET);
-    //find out why the username thing
-    //passing through the claims. so when in front end can just take whatever info i want through the claim
-    console.log(token);
-    console.log(user);
-    //explore this again later
-
-    // const payload = { username: user.rows[0].username };
-    // const token = jwt.sign(payload, JWT_SECRET);
-
-    // const JWT_SECRET = process.env.JWT_SECRET;
-
-    // const claims = {
-    //   username: user.rows[0].username,
-    // };
-    // const access = jwt.sign(claims, process.env.ACCESS_SECRET, {
-    //   expiresIn: "20m",
-    //   jwtid: uuidv4(),
-    // });
-    // const refresh = jwt.sign(claims, process.env.REFRESH_SECRET, {
-    //   expiresIn: "30D",
-    //   jwtid: uuidv4(),
-    // });
-    // res.json({ access, refresh });
 
     res.json({
       statusCode: 200,

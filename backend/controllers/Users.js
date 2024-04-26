@@ -28,7 +28,6 @@ const deleteUser = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
-
 //updating a user's information  //injection thing. to find out about it later.
 const updateUser = async (req, res) => {
   try {

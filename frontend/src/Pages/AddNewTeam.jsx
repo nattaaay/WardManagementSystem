@@ -14,7 +14,8 @@ export default function AddNewTeam({ open, setOpen }) {
   const handleAddNewUser = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch(`${BASE_URL}/register`, {
+      setLoading(true);
+      await fetch(`${BASE_URL}/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,11 +28,23 @@ export default function AddNewTeam({ open, setOpen }) {
         }),
       });
 
+      setLoading(false);
       //   const data = await response.json();
       setOpen(false);
 
       //   console.log(data);
+
+      fetchUsers();
+
+      setUserName("");
+
+      setPassword("");
+
+      setContactNumber("");
+
+      setRoles("");
     } catch (error) {
+      setLoading(false);
       console.error("Error:", error);
     }
   };
@@ -69,11 +82,14 @@ export default function AddNewTeam({ open, setOpen }) {
             >
               <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:p-6">
                 <form onSubmit={handleAddNewUser}>
+                  <h1 className="mb-3 text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
+                    Add new team member
+                  </h1>
                   <div>
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       User name
                     </label>
-                    <div className="mt-2">
+                    <div className="mt-1">
                       <input
                         type="text"
                         value={userName}
@@ -84,11 +100,11 @@ export default function AddNewTeam({ open, setOpen }) {
                     </div>
                   </div>
 
-                  <div>
+                  <div className="mt-3">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       Password
                     </label>
-                    <div className="mt-2">
+                    <div className="mt-1">
                       <input
                         type="password"
                         value={password}
@@ -99,11 +115,11 @@ export default function AddNewTeam({ open, setOpen }) {
                     </div>
                   </div>
 
-                  <div>
+                  <div className="mt-3">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       Contact number
                     </label>
-                    <div className="mt-2">
+                    <div className="mt-1">
                       <input
                         type="number"
                         value={contactNumber}
@@ -114,30 +130,36 @@ export default function AddNewTeam({ open, setOpen }) {
                     </div>
                   </div>
 
-                  <div>
+                  <div className="mt-3">
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       Roles
                     </label>
                     <select
                       value={roles}
                       onChange={(e) => setRoles(e.target.value)}
-                      className="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      className="mt-1 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
                       defaultValue="Canada"
                     >
-                      <option>select</option>
+                      <option>select role</option>
                       <option value={1}>Admin</option>
                       <option value={2}>Ward management team</option>
                       <option value={3}>Medical team</option>
                     </select>
                   </div>
                   <div className="mt-5 sm:mt-4 sm:flex sm:flex-row-reverse">
-                    <button
-                      type="submit"
-                      className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
-                      //   onClick={() => setOpen(false)}
-                    >
-                      Add User
-                    </button>
+                    {loading ? (
+                      <button className=" inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto">
+                        Loading...
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
+                      >
+                        Add User
+                      </button>
+                    )}
+
                     <button
                       type="button"
                       className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto"
