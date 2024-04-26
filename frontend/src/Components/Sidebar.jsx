@@ -36,7 +36,7 @@ export default function Sidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleLogout = () => {
-    localStorage.clear();
+    localStorage.clear(); //local storage
     navigate("/");
   };
 

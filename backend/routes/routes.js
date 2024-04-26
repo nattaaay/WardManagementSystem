@@ -16,5 +16,7 @@ router.get("/getUsers", getUsers);
 router.delete("/deleteUser/:id", deleteUser);
 
 router.post("/updateUser", updateUser);
-
+//why though? why not patch eh?
+//why DOESN'T patch work?
+// is it the endpoint? i dont know!!!
 module.exports = router;
