@@ -108,36 +108,23 @@ export default function Login() {
                     </div>
                   </div>
 
-                  {/* <div className="flex items-center justify-between">
-                      <div className="flex items-center">
-                        <input
-                          id="remember-me"
-                          name="remember-me"
-                          type="checkbox"
-                          className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
-                        />
-                        <label htmlFor="remember-me" className="ml-3 block text-sm leading-6 text-gray-700">
-                          Remember me
-                        </label>
-                      </div>
-  
-                      <div className="text-sm leading-6">
-                        <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                          Forgot password?
-                        </a>
-                      </div>
-                    </div> */}
                   <p className="text-sm text-red-500">
                     {error && !loading ? error : null}
                   </p>
 
                   <div>
-                    <button
-                      type="submit"
-                      className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                    >
-                      Sign in
-                    </button>
+                    {loading ? (
+                      <button className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                        Loading...
+                      </button>
+                    ) : (
+                      <button
+                        type="submit"
+                        className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      >
+                        Sign in
+                      </button>
+                    )}
                   </div>
                 </form>
               </div>
