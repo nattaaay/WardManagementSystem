@@ -1,7 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../Pages/Login";
-import Sidebar from "../Components/Sidebar";
+// import Sidebar from "../Components/Sidebar";
 import Teams from "../Pages/Teams";
+import Layout from "./Layout";
+import Patients from "../Pages/Patients";
 
 const Routing = () => {
   return (
@@ -9,8 +11,23 @@ const Routing = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
-          <Route path="/home" element={<Sidebar />} />
-          <Route path="/temas" element={<Teams />} />
+          {/* <Route path="/home" element={<Sidebar />} /> */}
+          <Route
+            path="/teams"
+            element={
+              <Layout>
+                <Teams />
+              </Layout>
+            }
+          />
+          <Route
+            path="/patients"
+            element={
+              <Layout>
+                <Patients />
+              </Layout>
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>

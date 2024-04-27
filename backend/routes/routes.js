@@ -1,7 +1,17 @@
-//3 - creating routes
 const express = require("express");
-const { Login, Register, Roles } = require("../controllers/Auth");
+const { Login, Register, Roles } = require("../controllers/auth");
 const { getUsers, deleteUser, updateUser } = require("../controllers/Users");
+const {
+  fetchAllPatients,
+  insertPatients,
+  deletePatient,
+  updatePatient,
+} = require("../controllers/patientPersonalParticulars");
+const {
+  insertPatientsMedicalDetails,
+  fetchAllMedicalHostory,
+  deletePatientMedicalHistory,
+} = require("../controllers/patientMedicalHistory");
 
 const router = express.Router();
 
@@ -16,7 +26,19 @@ router.get("/getUsers", getUsers);
 router.delete("/deleteUser/:id", deleteUser);
 
 router.post("/updateUser", updateUser);
-//why though? why not patch eh?
-//why DOESN'T patch work?
-// is it the endpoint? i dont know!!!
+
+router.get("/api/wmt/patientpp", fetchAllPatients);
+
+router.post("/api/wmt/patientpp", insertPatients);
+
+router.delete("/api/wmt/patientpp/:id", deletePatient);
+
+router.put("/api/wmt/patientpp", updatePatient);
+
+router.get("/api/mt/patientpp", fetchAllMedicalHostory);
+
+router.post("/api/mt/patientpp", insertPatientsMedicalDetails);
+
+router.delete("/api/wmt/patientpp/:id", deletePatientMedicalHistory);
+
 module.exports = router;

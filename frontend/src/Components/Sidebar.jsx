@@ -11,16 +11,8 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
 import { roles } from "../Constant/Constant";
-import { useNavigate } from "react-router-dom";
-import Teams from "../Pages/Teams";
-
-const navigation = [
-  { name: "Team", href: "#", icon: UsersIcon, current: false },
-  //   { name: "Projects", href: "#", icon: FolderIcon, current: false },
-  //   { name: "Calendar", href: "#", icon: CalendarIcon, current: false },
-  //   { name: "Documents", href: "#", icon: DocumentDuplicateIcon, current: false },
-  //   { name: "Reports", href: "#", icon: ChartPieIcon, current: false },
-];
+import { Link, useNavigate } from "react-router-dom";
+import { navigation } from "./Navigation";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -30,9 +22,8 @@ export default function Sidebar() {
   const navigate = useNavigate();
 
   const name = localStorage.getItem("username");
-  const employeeId = localStorage.getItem("employees_role");
+  const employeeId = localStorage.getItem("emplyees_role");
 
-  console.log("hello", employeeId, name);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleLogout = () => {
@@ -109,8 +100,8 @@ export default function Sidebar() {
                           <ul role="list" className="-mx-2 space-y-1">
                             {navigation.map((item) => (
                               <li key={item.name}>
-                                <a
-                                  href={item.href}
+                                <Link
+                                  to={item.href}
                                   className={classNames(
                                     item.current
                                       ? "bg-indigo-700 text-white"
@@ -128,7 +119,7 @@ export default function Sidebar() {
                                     aria-hidden="true"
                                   />
                                   {item.name}
-                                </a>
+                                </Link>
                               </li>
                             ))}
                           </ul>
@@ -360,9 +351,7 @@ export default function Sidebar() {
           </div>
 
           <main className="py-10">
-            <div className="px-4 sm:px-6 lg:px-8">
-              <Teams />
-            </div>
+            <div className="px-4 sm:px-6 lg:px-8">{/* <Teams /> */}</div>
           </main>
         </div>
       </div>
