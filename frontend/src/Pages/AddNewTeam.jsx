@@ -10,6 +10,7 @@ export default function AddNewTeam({ open, setOpen }) {
   const [password, setPassword] = useState("");
   const [contactNumber, setContactNumber] = useState("");
   const [roles, setRoles] = useState("");
+  const [loading, setLoading] = useState("");
 
   const handleAddNewUser = async (event) => {
     event.preventDefault();

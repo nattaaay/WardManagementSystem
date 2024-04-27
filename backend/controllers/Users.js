@@ -1,5 +1,6 @@
 const client = require("../database");
-
+require("dotenv").config();
+console.log(process.env.JWT_SECRET); // remove this
 //fetch all users from the 'employees' table in the db
 const getUsers = async (req, res) => {
   try {

@@ -2,6 +2,7 @@
 const express = require("express");
 const bodyParser = require("body-parser"); //when we are using post requests, we take in the body
 const cors = require("cors"); //pass from backend to frontend (connection)
+require("dotenv").config();
 
 const userRouter = require("./routes/routes");
 
