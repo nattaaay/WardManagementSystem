@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
@@ -12,17 +12,17 @@ import {
 } from "@heroicons/react/20/solid";
 import { roles } from "../Constant/Constant";
 import { Link, useNavigate } from "react-router-dom";
-import { navigation } from "./Navigation";
+import { navigation, wardManagementRoutes } from "./Navigation";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Sidebar() {
+export default function Sidebar({ routesNavigation }) {
   const navigate = useNavigate();
 
   const name = localStorage.getItem("username");
-  const employeeId = localStorage.getItem("emplyees_role");
+  const employeeId = localStorage.getItem("employees_role");
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
@@ -30,6 +30,14 @@ export default function Sidebar() {
     localStorage.clear(); //local storage
     navigate("/");
   };
+
+  let sidebarRoutes = [];
+
+  if (employeeId == "1") {
+    sidebarRoutes = navigation;
+  } else {
+    sidebarRoutes = wardManagementRoutes;
+  }
 
   return (
     <>
@@ -98,7 +106,7 @@ export default function Sidebar() {
                       <ul role="list" className="flex flex-1 flex-col gap-y-7">
                         <li>
                           <ul role="list" className="-mx-2 space-y-1">
-                            {navigation.map((item) => (
+                            {sidebarRoutes.map((item) => (
                               <li key={item.name}>
                                 <Link
                                   to={item.href}
@@ -184,10 +192,10 @@ export default function Sidebar() {
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
                 <li>
                   <ul role="list" className="-mx-2 space-y-1">
-                    {navigation.map((item) => (
+                    {sidebarRoutes.map((item) => (
                       <li key={item.name}>
-                        <a
-                          href={item.href}
+                        <Link
+                          to={item.href}
                           className={classNames(
                             item.current
                               ? "bg-indigo-700 text-white"
@@ -205,7 +213,7 @@ export default function Sidebar() {
                             aria-hidden="true"
                           />
                           {item.name}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
