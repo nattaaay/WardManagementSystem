@@ -1,6 +1,6 @@
 const client = require("../database");
 
-const fetchAllMedicalHostory = async (req, res) => {
+const fetchAllMedicalHistory = async (req, res) => {
   try {
     const roles = await client.query(
       `SELECT * FROM public."patients-medical-details" ORDER BY id ASC`
@@ -83,7 +83,7 @@ const updatePatientMedicalHistory = async (req, res) => {
 };
 
 module.exports = {
-  fetchAllMedicalHostory,
+  fetchAllMedicalHistory,
   insertPatientsMedicalDetails,
   deletePatientMedicalHistory,
   updatePatientMedicalHistory,

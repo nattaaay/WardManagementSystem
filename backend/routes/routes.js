@@ -9,7 +9,7 @@ const {
 } = require("../controllers/patientPersonalParticulars");
 const {
   insertPatientsMedicalDetails,
-  fetchAllMedicalHostory,
+  fetchAllMedicalHistory,
   deletePatientMedicalHistory,
 } = require("../controllers/patientMedicalHistory");
 
@@ -35,7 +35,7 @@ router.post("/api/wmt/patient/discharge/pp/:id", deletePatient);
 
 router.put("/api/wmt/patientpp", updatePatient);
 
-router.get("/api/mt/patientpp", fetchAllMedicalHostory);
+router.get("/api/mt/patientpp", fetchAllMedicalHistory);
 
 router.post("/api/mt/patientpp", insertPatientsMedicalDetails);
 

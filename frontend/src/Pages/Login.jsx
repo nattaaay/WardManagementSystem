@@ -30,7 +30,11 @@ export default function Login() {
         localStorage.setItem("username", data.user[0].username);
         localStorage.setItem("employees_role", data.user[0].employees_role);
         setLoading(false);
-        navigate("/teams");
+        if (data.user[0].employees_role === 2) {
+          navigate("/patients");
+        } else {
+          navigate("/teams");
+        }
       } else {
         setLoading(false);
         setError("User name and password is incorrect");
