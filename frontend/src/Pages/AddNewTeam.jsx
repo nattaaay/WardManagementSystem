@@ -2,10 +2,9 @@ import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { BASE_URL } from "../constant/constant";
 
-export default function AddNewTeam({ open, setOpen }) {
+export default function AddNewTeam({ open, setOpen, fetchUsers }) {
   const cancelButtonRef = useRef(null);
 
-  //this is the moment that i fell in love with useState. Finally.
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [contactNumber, setContactNumber] = useState("");
@@ -30,6 +29,7 @@ export default function AddNewTeam({ open, setOpen }) {
       });
 
       setLoading(false);
+      alert("Team member added successfully");
       //   const data = await response.json();
       setOpen(false);
 

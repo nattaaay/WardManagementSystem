@@ -30,9 +30,18 @@ export default function Login() {
         localStorage.setItem("username", data.user[0].username);
         localStorage.setItem("employees_role", data.user[0].employees_role);
         setLoading(false);
-        if (data.user[0].employees_role === 2) {
+
+        console.log(data.user[0].employees_role == 2);
+
+        if (data.user[0].employees_role == 2) {
+          console.log("one");
           navigate("/patients");
-        } else {
+        }
+        if (data.user[0].employees_role == 3) {
+          console.log("two");
+          navigate("/patients");
+        } else if (data.user[0].employees_role == 1) {
+          console.log("three");
           navigate("/teams");
         }
       } else {
@@ -56,21 +65,12 @@ export default function Login() {
             <div>
               <img
                 className="h-19 w-auto"
-                src="https://img.freepik.com/premium-photo/minimalistic-logo-tattoo-emblem-with-bird-silhouette-white-isolated-background_118086-14147.jpg"
+                src="https://media.istockphoto.com/id/1421823625/vector/circle-with-gold-wings-inside.jpg?s=612x612&w=0&k=20&c=PBOKbpem1SA1CPXpqH2pgnL2d5wQFCroHGWgS_40KLE="
                 alt="Your Company"
               />
               <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
                 Sign in to your account
               </h2>
-              {/* <p className="mt-2 text-sm leading-6 text-gray-500">
-                Not a member?{" "}
-                <a
-                  href="#"
-                  className="font-semibold text-indigo-600 hover:text-indigo-500"
-                >
-                  Start a 14 day free trial
-                </a>
-              </p> */}
             </div>
 
             <div className="mt-10">

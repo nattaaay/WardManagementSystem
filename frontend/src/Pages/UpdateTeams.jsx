@@ -30,6 +30,7 @@ export default function UpdateTeams({ open, setOpen, updateData, fetchUsers }) {
       });
 
       setLoading(false);
+      alert("Team member update successfully");
       setOpen(false);
       fetchUsers();
 

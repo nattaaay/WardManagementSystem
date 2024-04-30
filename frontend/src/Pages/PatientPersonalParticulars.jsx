@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
-import { BASE_URL, roles } from "../constant/constant";
+import { BASE_URL } from "../constant/constant";
 import MedicalHistory from "./MedicalHistory";
 import AddPatient from "./AddPatient";
+import moment from "moment";
 
-const PatientPersonalParticulars = () => {
+const PatientPersonalParticulars = ({ wardNumber }) => {
   const [users, setUsers] = useState([]);
   const [seeMedicalHistory, setSeeMedicalhistory] = useState(false);
   const [addPatient, setAddPatient] = useState(false);
   const [medicalHistoryDetails, setMedicalHistoryDetails] = useState("");
 
   const fetchUsers = () => {
-    fetch(`${BASE_URL}/api/wmt/patientpp`)
+    fetch(`${BASE_URL}/api/wmt/patientpp/wards/${wardNumber}`)
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -28,12 +29,11 @@ const PatientPersonalParticulars = () => {
 
   useEffect(() => {
     fetchUsers();
-  }, []);
-
-  console.log(users);
+  }, [wardNumber]);
 
   //discharge button function
   const handleDischarge = async (patientId) => {
+    console.log(patientId);
     try {
       const response = await fetch(
         `${BASE_URL}/api/wmt/patient/discharge/pp/${patientId}`,
@@ -45,16 +45,16 @@ const PatientPersonalParticulars = () => {
         }
       );
 
-      if (!response.ok) {
-        throw new Error("Failed to discharge patient");
-      }
-
       const data = await response.json();
-      console.log(data); // Log success message
+      alert("Discharge patient successfuly");
+
+      console.log("test", data); // Log success message
     } catch (error) {
       console.error("Error:", error.message);
     }
   };
+
+  // console.log(users[0]?.discharge_patient === "false")
 
   return (
     <>
@@ -117,6 +117,12 @@ const PatientPersonalParticulars = () => {
                     >
                       Bed number
                     </th>
+                    <th
+                      scope="col"
+                      className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
+                    >
+                      Status
+                    </th>
 
                     <th
                       scope="col"
@@ -142,51 +148,57 @@ const PatientPersonalParticulars = () => {
                 </thead>
                 <tbody className="divide-y divide-gray-200">
                   {users &&
-                    users
-                      .filter((person) => !person.discharge_patient)
-                      .map((person) => (
-                        <tr key={person.id}>
-                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                            {person.patient_name}
-                          </td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                            {person.ic_number}
-                          </td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                            {/* {roles(person.employees_role)} */}
-                            {person.contact_number}
-                          </td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                            {person.ward_number}
-                          </td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                            {person.bed_number}
-                          </td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                            {person.admission_date}
-                          </td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                            {person.discharge_date}
-                          </td>
-                          <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
-                            <button
-                              className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-5"
-                              onClick={() => {
-                                setSeeMedicalhistory(true);
-                                setMedicalHistoryDetails(person);
-                              }}
-                            >
-                              Medical details
-                            </button>
-                            <button
-                              className="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
-                              onClick={() => handleDischarge(person.id)}
-                            >
-                              Discharge
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
+                    users.map((person) => (
+                      <tr key={person.id}>
+                        <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
+                          {person.patient_name}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {person.ic_number}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {person.contact_number}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {person.ward_number}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {person.bed_number}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
+                          <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                            {person.discharge_patient == false
+                              ? "Active"
+                              : "Discharge"}
+                          </span>
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {person.admission_date &&
+                            moment(person.admission_date).format("Do MMM YY")}
+                        </td>
+                        <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                          {person.discharge_date &&
+                            moment(person.discharge_date).format("Do MMM YY")}
+                        </td>
+                        <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                          <button
+                            className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-5"
+                            onClick={() => {
+                              setSeeMedicalhistory(true);
+                              setMedicalHistoryDetails(person);
+                            }}
+                          >
+                            Medical details
+                          </button>
+                          <button
+                            className="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                            onClick={() => handleDischarge(person.id)}
+                          >
+                            Discharge
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             </div>

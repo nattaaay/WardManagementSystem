@@ -3,6 +3,7 @@ import { Dialog, Menu, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   BellIcon,
+  ArrowRightIcon,
   UsersIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
@@ -12,7 +13,11 @@ import {
 } from "@heroicons/react/20/solid";
 import { roles } from "../constant/constant";
 import { Link, useNavigate } from "react-router-dom";
-import { navigation, wardManagementRoutes } from "./Navigation";
+import {
+  medicalTeamRoutes,
+  navigation,
+  wardManagementRoutes,
+} from "./Navigation";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -26,7 +31,12 @@ export default function Sidebar({ routesNavigation }) {
 
   //set sidebar open or close
   const [sidebarOpen, setSidebarOpen] = useState(false);
-
+  const [searchTerm, setSearchTerm] = useState("");
+  const searchByName = () => {
+    alert("hi");
+    //put in the logic (to get data from db when search is requested)
+    console.log(searchTerm);
+  };
   const handleLogout = () => {
     localStorage.clear(); //local storage
     navigate("/");
@@ -36,8 +46,10 @@ export default function Sidebar({ routesNavigation }) {
 
   if (employeeId == "1") {
     sidebarRoutes = navigation;
-  } else {
+  } else if (employeeId == "2") {
     sidebarRoutes = wardManagementRoutes;
+  } else {
+    sidebarRoutes = medicalTeamRoutes;
   }
 
   return (
@@ -283,25 +295,24 @@ export default function Sidebar({ routesNavigation }) {
                 <label htmlFor="search-field" className="sr-only">
                   Search
                 </label>
-                <MagnifyingGlassIcon
-                  className="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"
-                  aria-hidden="true"
-                />
                 <input
                   id="search-field"
                   className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"
                   placeholder="Search..."
                   type="search"
                   name="search"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                 />
               </form>
               <div className="flex items-center gap-x-4 lg:gap-x-6">
                 <button
                   type="button"
                   className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
+                  onClick={searchByName}
                 >
                   <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
                 {/* Separator */}

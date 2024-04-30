@@ -20,45 +20,41 @@ export default function AddPatient({ open, setOpen }) {
 
   const handleAddNewUser = async (event) => {
     event.preventDefault();
-    try {
-      setLoading(true);
-      await fetch(`${BASE_URL}/api/wmt/patientpp`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          patient_name: userName,
-          contact_number: contactNumber,
-          admission_date: admissionDate,
-          discharge_date: dischargeDate,
-          ic_number: icNumber,
-          ward_number: wardNumber,
-          bed_number: bedNumber,
-          medical_history: medicalHistory,
-          medical_notes: medicalNotes,
-          treatment_plans: treatmentPlans,
-        }),
-      });
+    if (wardNumber.length > 10) {
+      alert("Ward length should be less than 10");
+    } else if (bedNumber.length > 10) {
+      alert("Bed number length should be less than 10");
+    } else {
+      try {
+        setLoading(true);
+        await fetch(`${BASE_URL}/api/wmt/patientpp`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            patient_name: userName,
+            contact_number: contactNumber,
+            admission_date: admissionDate,
+            discharge_date: dischargeDate,
+            ic_number: icNumber,
+            ward_number: wardNumber,
+            bed_number: bedNumber,
+            medical_history: medicalHistory,
+            medical_notes: medicalNotes,
+            treatment_plans: treatmentPlans,
+          }),
+        });
 
-      setLoading(false);
-      //   const data = await response.json();
-      setOpen(false);
-
-      //   console.log(data);
-
-      //   fetchUsers();
-
-      setUserName("");
-
-      //   setPassword("");
-
-      setContactNumber("");
-
-      //   setRoles("");
-    } catch (error) {
-      setLoading(false);
-      console.error("Error:", error);
+        setLoading(false);
+        alert("Patient added successfully");
+        setOpen(false);
+        window.location.reload();
+      } catch (error) {
+        setLoading(false);
+        console.error("Error:", error);
+        alert("Something went wrong");
+      }
     }
   };
 

@@ -39,6 +39,7 @@ export default function Teams() {
       if (!response.ok) {
         throw new Error("Failed to delete user");
       }
+      alert("Team member delete successfully");
       fetchUsers();
     } catch (error) {
       console.log(error);
