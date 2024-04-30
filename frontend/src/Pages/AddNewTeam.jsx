@@ -1,6 +1,6 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { BASE_URL } from "../Constant/Constant";
+import { BASE_URL } from "../constant/constant";
 
 export default function AddNewTeam({ open, setOpen }) {
   const cancelButtonRef = useRef(null);
@@ -36,13 +36,9 @@ export default function AddNewTeam({ open, setOpen }) {
       //   console.log(data);
 
       fetchUsers();
-
       setUserName("");
-
       setPassword("");
-
       setContactNumber("");
-
       setRoles("");
     } catch (error) {
       setLoading(false);

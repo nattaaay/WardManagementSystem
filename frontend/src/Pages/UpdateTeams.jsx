@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { BASE_URL } from "../Constant/Constant";
+import { BASE_URL } from "../constant/constant";
 
 export default function UpdateTeams({ open, setOpen, updateData, fetchUsers }) {
   const cancelButtonRef = useRef(null);

@@ -16,6 +16,12 @@ const Patients = () => {
           <option>Ward 2 </option>
           <option>Ward 3 </option>
           <option>Ward 4 </option>
+          <option>Ward 5 </option>
+          <option>Ward 6 </option>
+          <option>Ward 7 </option>
+          <option>Ward 8 </option>
+          <option>Ward 9 </option>
+          <option>Ward 10 </option>
         </select>
       </div>
 

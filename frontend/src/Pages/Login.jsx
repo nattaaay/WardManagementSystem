@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BASE_URL } from "../Constant/Constant";
+import { BASE_URL } from "../constant/constant";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -62,7 +62,7 @@ export default function Login() {
               <h2 className="mt-8 text-2xl font-bold leading-9 tracking-tight text-gray-900">
                 Sign in to your account
               </h2>
-              <p className="mt-2 text-sm leading-6 text-gray-500">
+              {/* <p className="mt-2 text-sm leading-6 text-gray-500">
                 Not a member?{" "}
                 <a
                   href="#"
@@ -70,7 +70,7 @@ export default function Login() {
                 >
                   Start a 14 day free trial
                 </a>
-              </p>
+              </p> */}
             </div>
 
             <div className="mt-10">

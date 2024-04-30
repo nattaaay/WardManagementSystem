@@ -1,11 +1,15 @@
+//create routes
+
 const express = require("express");
 const { Login, Register, Roles } = require("../controllers/auth");
-const { getUsers, deleteUser, updateUser } = require("../controllers/Users");
+const { getUsers, deleteUser, updateUser } = require("../controllers/users");
 const {
   fetchAllPatients,
   insertPatients,
   deletePatient,
   updatePatient,
+  fetchAllWards,
+  fetchPatientsWithWards,
 } = require("../controllers/patientPersonalParticulars");
 const {
   insertPatientsMedicalDetails,
@@ -14,6 +18,8 @@ const {
 } = require("../controllers/patientMedicalHistory");
 
 const router = express.Router();
+
+//PROTECTED ROUTES***********************************
 
 router.post("/login", Login);
 
@@ -29,9 +35,13 @@ router.post("/updateUser", updateUser);
 
 router.get("/api/wmt/patientpp", fetchAllPatients);
 
+router.get("/api/wmt/patientpp/wards/:wardNumber", fetchPatientsWithWards);
+
 router.post("/api/wmt/patientpp", insertPatients);
 
 router.post("/api/wmt/patient/discharge/pp/:id", deletePatient);
+
+router.get("/api/wmt/patient/wards", fetchAllWards);
 
 router.put("/api/wmt/patientpp", updatePatient);
 

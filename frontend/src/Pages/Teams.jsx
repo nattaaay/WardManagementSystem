@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BASE_URL, roles } from "../Constant/Constant";
+import { BASE_URL, roles } from "../constant/constant";
 import AddNewTeam from "./AddNewTeam";
 import UpdateTeams from "./UpdateTeams";
 
@@ -18,6 +18,7 @@ export default function Teams() {
         return response.json();
       })
       .then((data) => {
+        //async await INSTEAD *****************************
         setUsers(data.data);
         console.log(data);
       })

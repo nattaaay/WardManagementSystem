@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BASE_URL, roles } from "../Constant/Constant";
+import { BASE_URL, roles } from "../constant/constant";
 import MedicalHistory from "./MedicalHistory";
 import AddPatient from "./AddPatient";
 
@@ -32,6 +32,7 @@ const PatientPersonalParticulars = () => {
 
   console.log(users);
 
+  //discharge button function
   const handleDischarge = async (patientId) => {
     try {
       const response = await fetch(

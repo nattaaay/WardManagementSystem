@@ -9,3 +9,7 @@ export const navigation = [
 export const wardManagementRoutes = [
   { name: "patients", href: "/patients", icon: UsersIcon, current: false },
 ];
+
+export const medicalTeamRoutes = [
+  { name: "patients", href: "/patients", icon: UsersIcon, current: false },
+];

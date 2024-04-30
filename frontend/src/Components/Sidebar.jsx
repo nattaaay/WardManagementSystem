@@ -10,7 +10,7 @@ import {
   ChevronDownIcon,
   MagnifyingGlassIcon,
 } from "@heroicons/react/20/solid";
-import { roles } from "../Constant/Constant";
+import { roles } from "../constant/constant";
 import { Link, useNavigate } from "react-router-dom";
 import { navigation, wardManagementRoutes } from "./Navigation";
 
@@ -24,6 +24,7 @@ export default function Sidebar({ routesNavigation }) {
   const name = localStorage.getItem("username");
   const employeeId = localStorage.getItem("employees_role");
 
+  //set sidebar open or close
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const handleLogout = () => {

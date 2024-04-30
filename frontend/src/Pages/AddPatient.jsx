@@ -1,6 +1,6 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { BASE_URL } from "../Constant/Constant";
+import { BASE_URL } from "../constant/constant";
 
 export default function AddPatient({ open, setOpen }) {
   const cancelButtonRef = useRef(null);
@@ -108,7 +108,7 @@ export default function AddPatient({ open, setOpen }) {
                         value={userName}
                         onChange={(e) => setUserName(e.target.value)}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="lovedoctor123"
+                        placeholder="full name"
                       />
                     </div>
                   </div>
@@ -123,7 +123,7 @@ export default function AddPatient({ open, setOpen }) {
                         value={icNumber}
                         onChange={(e) => setIcNumber(e.target.value)}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="password"
+                        placeholder="IC number"
                       />
                     </div>
                   </div>
@@ -138,7 +138,7 @@ export default function AddPatient({ open, setOpen }) {
                         value={contactNumber}
                         onChange={(e) => setContactNumber(e.target.value)}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="12345678"
+                        placeholder="Contact number"
                       />
                     </div>
                   </div>
@@ -153,7 +153,7 @@ export default function AddPatient({ open, setOpen }) {
                         value={wardNumber}
                         onChange={(e) => setWardNumber(e.target.value)}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="12345678"
+                        placeholder="Select Ward"
                       />
                     </div>
                   </div>
@@ -168,7 +168,7 @@ export default function AddPatient({ open, setOpen }) {
                         value={bedNumber}
                         onChange={(e) => setBedNumber(e.target.value)}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="12345678"
+                        placeholder="Select Bed"
                       />
                     </div>
                   </div>
@@ -183,7 +183,7 @@ export default function AddPatient({ open, setOpen }) {
                         value={admissionDate}
                         onChange={(e) => setAdmissionDate(e.target.value)}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="12345678"
+                        placeholder="Admission Date"
                       />
                     </div>
                   </div>
