@@ -1,6 +1,5 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../Pages/Login";
-// import Sidebar from "../Components/Sidebar";
 import Teams from "../Pages/Teams";
 import Layout from "./Layout";
 import Patients from "../Pages/Patients";
@@ -11,7 +10,6 @@ const Routing = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Login />} />
-          {/* <Route path="/home" element={<Sidebar />} /> */}
           <Route
             path="/teams"
             element={

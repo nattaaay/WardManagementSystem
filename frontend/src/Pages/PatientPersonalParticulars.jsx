@@ -3,12 +3,17 @@ import { BASE_URL } from "../constant/constant";
 import MedicalHistory from "./MedicalHistory";
 import AddPatient from "./AddPatient";
 import moment from "moment";
+import UpdatePatients from "./UpdatePatients";
 
 const PatientPersonalParticulars = ({ wardNumber }) => {
+  const employeeId = localStorage.getItem("employees_role");
   const [users, setUsers] = useState([]);
   const [seeMedicalHistory, setSeeMedicalhistory] = useState(false);
   const [addPatient, setAddPatient] = useState(false);
   const [medicalHistoryDetails, setMedicalHistoryDetails] = useState("");
+
+  const [updateModalOpen, setUpdateModalOpen] = useState(false);
+  const [updateData, setUpdateData] = useState([]);
 
   const fetchUsers = () => {
     fetch(`${BASE_URL}/api/wmt/patientpp/wards/${wardNumber}`)
@@ -54,7 +59,10 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
     }
   };
 
-  // console.log(users[0]?.discharge_patient === "false")
+  const handleUpdate = (data) => {
+    setUpdateData(data);
+    setUpdateModalOpen(true);
+  };
 
   return (
     <>
@@ -70,13 +78,23 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
             </p>
           </div>
           <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-            <button
-              type="button"
-              className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-              onClick={() => setAddPatient(true)}
-            >
-              Add patient
-            </button>
+            {employeeId == "3" ? (
+              <button
+                type="button"
+                className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                disabled
+              >
+                Add patient
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                onClick={() => setAddPatient(true)}
+              >
+                Add patient
+              </button>
+            )}
           </div>
         </div>
         <div className="mt-8 flow-root">
@@ -191,10 +209,16 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
                             Medical details
                           </button>
                           <button
-                            className="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                            className="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 mr-5"
                             onClick={() => handleDischarge(person.id)}
                           >
                             Discharge
+                          </button>
+                          <button
+                            className="rounded-md bg-green-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+                            onClick={() => handleUpdate(person)}
+                          >
+                            Update
                           </button>
                         </td>
                       </tr>
@@ -204,21 +228,17 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
             </div>
           </div>
         </div>
-        {/* <AddNewTeam open={open} setOpen={setOpen} fetchUsers={fetchUsers} />
-      {updateData && (
-        <UpdateTeams
-          open={updateOpen}
-          setOpen={setUpdateOpen}
-          updateData={updateData}
-          fetchUsers={fetchUsers}
-        />
-      )} */}
         <MedicalHistory
           open={seeMedicalHistory}
           setOpen={setSeeMedicalhistory}
           medicalHistoryDetails={medicalHistoryDetails}
         />
         <AddPatient open={addPatient} setOpen={setAddPatient} />
+        <UpdatePatients
+          open={updateModalOpen}
+          setOpen={setUpdateModalOpen}
+          data={updateData}
+        />
       </div>
     </>
   );

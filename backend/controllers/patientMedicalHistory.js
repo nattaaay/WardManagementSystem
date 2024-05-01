@@ -51,7 +51,6 @@ const deletePatientMedicalHistory = async (req, res) => {
     const { id } = req.params; //extract patient's id from the request parameter
     await client.query(
       //delete patient's medical history record from the db
-
       `DELETE FROM public."patients-medical-details" WHERE id = $1`,
       [id]
     );

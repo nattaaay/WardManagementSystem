@@ -57,6 +57,7 @@ const fetchPatientsWithWards = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
+
 const insertPatients = async (req, res) => {
   try {
     const {
@@ -100,8 +101,6 @@ const insertPatients = async (req, res) => {
 };
 
 //"delete" patient. change the discharge_patient to true
-// push to patients history --  WORK ON THIS LATER! ***
-// deal with the date thing!
 const deletePatient = async (req, res) => {
   try {
     const { id } = req.params;
@@ -140,29 +139,64 @@ const fetchAllWards = async (req, res) => {
 const updatePatient = async (req, res) => {
   try {
     const {
-      id,
-      name,
+      patient_name,
       ic_number,
       contact_number,
       ward_number,
       bed_number,
       admission_date,
       discharge_date,
+      medical_history,
+      medical_notes,
+      treatment_plans,
     } = req.body;
+
+    // Check if the patient exists
+    const patientExists = await client.query(
+      `SELECT * FROM public."patient-personal-particulars" WHERE ic_number = $1`,
+      [ic_number]
+    );
+
+    if (patientExists.rows.length === 0) {
+      return res
+        .status(404)
+        .send({ statusCode: 404, message: "Patient not found" });
+    }
+
     await client.query(
-      `UPDATE public."patient-personal-particulars" SET name = $1, ic_number = $2, contact_number = $3, ward_number = $4, bed_number = $5, admission_date = $6, discharge_date = $7 WHERE id = $8`,
+      `UPDATE public."patient-personal-particulars" 
+       SET patient_name = $1, 
+           contact_number = $2, 
+           ward_number = $3, 
+           bed_number = $4, 
+           admission_date = $5, 
+           discharge_date = $6 
+       WHERE ic_number = $7`,
       [
-        name,
-        ic_number,
+        patient_name,
         contact_number,
         ward_number,
         bed_number,
         admission_date,
         discharge_date,
-        id,
+        ic_number,
       ]
     );
-    res.status(200).send({ statusCode: 200, message: "Successful" });
+
+    await client.query(
+      `UPDATE public."patients-medical-details" 
+       SET patient_medical_name = $1, 
+           medical_history = $2, 
+           medical_notes = $3, 
+           treatment_plans = $4 
+       WHERE ic_number = $5`,
+      [patient_name, medical_history, medical_notes, treatment_plans, ic_number]
+    );
+
+    res.status(200).send({
+      statusCode: 200,
+      message: "Patient record updated successfully",
+    });
   } catch (error) {
     console.error(error);
     res.status(500).send(error.message);

@@ -19,8 +19,6 @@ const {
 
 const router = express.Router();
 
-//PROTECTED ROUTES***********************************
-
 router.post("/login", Login);
 
 router.post("/register", Register);
@@ -43,7 +41,7 @@ router.post("/api/wmt/patient/discharge/pp/:id", deletePatient);
 
 router.get("/api/wmt/patient/wards", fetchAllWards);
 
-router.put("/api/wmt/patientpp", updatePatient);
+router.post("/api/wmt/patientpp", updatePatient);
 
 router.get("/api/mt/patientpp", fetchAllMedicalHistory);
 

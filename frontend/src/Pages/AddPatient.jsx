@@ -1,6 +1,7 @@
+/* eslint-disable react/prop-types */
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { BASE_URL } from "../constant/constant";
+import { BASE_URL, allBeds, allWards } from "../constant/constant";
 
 export default function AddPatient({ open, setOpen }) {
   const cancelButtonRef = useRef(null);
@@ -143,14 +144,25 @@ export default function AddPatient({ open, setOpen }) {
                     <label className="block text-sm font-medium leading-6 text-gray-900">
                       Ward number
                     </label>
+
                     <div className="mt-1">
-                      <input
+                      <select
+                        value={wardNumber}
+                        onChange={(e) => setWardNumber(e.target.value)}
+                        className="mt-1 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      >
+                        <option>Select ward</option>
+                        {allWards.map((e) => (
+                          <option key={e.id}>{e.ward_number}</option>
+                        ))}
+                      </select>
+                      {/* <input
                         type="text"
                         value={wardNumber}
                         onChange={(e) => setWardNumber(e.target.value)}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         placeholder="Select Ward"
-                      />
+                      /> */}
                     </div>
                   </div>
 
@@ -159,13 +171,23 @@ export default function AddPatient({ open, setOpen }) {
                       Bed number
                     </label>
                     <div className="mt-1">
-                      <input
+                    <select
+                        value={bedNumber}
+                        onChange={(e) => setBedNumber(e.target.value)}
+                        className="mt-1 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                      >
+                        <option>Select Bed</option>
+                        {allBeds.map((e) => (
+                          <option key={e.id}>{e.bed_number}</option>
+                        ))}
+                      </select>
+                      {/* <input
                         type="text"
                         value={bedNumber}
                         onChange={(e) => setBedNumber(e.target.value)}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         placeholder="Select Bed"
-                      />
+                      /> */}
                     </div>
                   </div>
 

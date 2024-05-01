@@ -9,23 +9,21 @@ export default function Teams() {
   const [users, setUsers] = useState([]);
   const [updateData, setUpdateData] = useState("");
 
-  const fetchUsers = () => {
-    fetch(`${BASE_URL}/getUsers`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return response.json();
-      })
-      .then((data) => {
-        //async await INSTEAD *****************************
-        setUsers(data.data);
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("There was a problem with the fetch operation:", error);
-      });
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch(`${BASE_URL}/getUsers`);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      const data = await response.json();
+      // No need for additional changes here since setUsers is not asynchronous
+      setUsers(data.data);
+      console.log(data);
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
   };
+  
 
   useEffect(() => {
     fetchUsers();

@@ -6,7 +6,6 @@ export default function MedicalHistory({
   open,
   setOpen,
   medicalHistoryDetails,
-  //
 }) {
   const cancelButtonRef = useRef(null);
 
@@ -49,17 +48,23 @@ export default function MedicalHistory({
                   <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                     <Dialog.Title
                       as="h3"
-                      className="text-base font-semibold leading-6 text-gray-900"
+                      className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight"
                     >
                       Medical Details
                     </Dialog.Title>
                     <div className="mt-2">
-                      <h3>Medical history</h3>
-                      <p>{medicalHistoryDetails.medical_history}</p>
-                      <h3>Medical notes</h3>
-                      <p>{medicalHistoryDetails.medical_notes}</p>
-                      <h3>Treatment plans</h3>
-                      <p>{medicalHistoryDetails.treatment_plans}</p>
+                      <h3 className="text-xs font-bold leading-7 text-gray-900 sm:truncate sm:text-lg sm:tracking-tight">
+                        Medical history
+                      </h3>
+                      <p>{medicalHistoryDetails?.medical_history}</p>
+                      <h3 className="mt-2 text-xs font-bold leading-7 text-gray-900 sm:truncate sm:text-lg sm:tracking-tight">
+                        Medical notes
+                      </h3>
+                      <p>{medicalHistoryDetails?.medical_notes}</p>
+                      <h3 className="mt-2 text-xs font-bold leading-7 text-gray-900 sm:truncate sm:text-lg sm:tracking-tight">
+                        Treatment plans
+                      </h3>
+                      <p>{medicalHistoryDetails?.treatment_plans}</p>
                     </div>
                   </div>
                 </div>
