@@ -32,8 +32,6 @@ export default function UpdatePatients({ open, setOpen, data }) {
 
   const [loading, setLoading] = useState("");
 
-  console.log(data);
-
   useEffect(() => {
     const formattedAdmissionDate = data?.admission_date
       ? new Date(data.admission_date).toISOString().split("T")[0]
@@ -51,7 +49,7 @@ export default function UpdatePatients({ open, setOpen, data }) {
     setTreatmentPlans(data?.treatment_plans || "");
     setPatientId(data?.uuid || "");
   }, [data]);
-  console.log(data);
+
   const handleAddNewUser = async (event) => {
     event.preventDefault();
     if (wardNumber.length > 10) {

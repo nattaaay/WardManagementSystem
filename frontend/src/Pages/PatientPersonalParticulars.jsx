@@ -33,7 +33,7 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
       }
       const data = await response.json();
       setUsers(data.data);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.error("There was a problem with the fetch operation:", error);
     }
@@ -71,8 +71,6 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
     setUpdateData(data);
     setUpdateModalOpen(true);
   };
-
-  console.log("hello", users);
 
   return (
     <>
