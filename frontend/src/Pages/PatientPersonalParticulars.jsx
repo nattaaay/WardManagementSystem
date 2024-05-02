@@ -69,7 +69,7 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
       <div className="px-4 sm:px-6 lg:px-8 mt-5">
         <div className="sm:flex sm:items-center">
           <div className="sm:flex-auto">
-            <h1 className="text-base font-semibold leading-6 text-gray-900">
+            <h1 className="text-2xl font-bold leading-7 text-gray-900 sm:truncate sm:text-3xl sm:tracking-tight">
               Patient Personal Particulars
             </h1>
             <p className="mt-2 text-sm text-gray-700">
@@ -185,9 +185,9 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
                         </td>
                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
                           <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                            {person.discharge_patient == false
-                              ? "Active"
-                              : "Discharge"}
+                            {person.discharge_patient == "discharge"
+                              ? "Discharge"
+                              : "Active"}
                           </span>
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
@@ -210,7 +210,7 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
                           </button>
                           <button
                             className="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 mr-5"
-                            onClick={() => handleDischarge(person.id)}
+                            onClick={() => handleDischarge(person.uuid)}
                           >
                             Discharge
                           </button>

@@ -27,6 +27,7 @@ export default function UpdatePatients({ open, setOpen, data }) {
   const [treatmentPlans, setTreatmentPlans] = useState(
     data?.treatment_plans || ""
   );
+  const [patientId, setPatientId] = useState(data?.uuid || "");
 
   const [loading, setLoading] = useState("");
 
@@ -41,6 +42,7 @@ export default function UpdatePatients({ open, setOpen, data }) {
     setMedicalHistory(data?.medical_history || "");
     setMedicalNotes(data?.medical_notes || "");
     setTreatmentPlans(data?.treatment_plans || "");
+    setPatientId(data?.uuid || "");
   }, [data]);
 
   const handleAddNewUser = async (event) => {
@@ -52,12 +54,13 @@ export default function UpdatePatients({ open, setOpen, data }) {
     } else {
       try {
         setLoading(true);
-        await fetch(`${BASE_URL}/api/wmt/patientpp`, {
+        await fetch(`${BASE_URL}/api/wmt/patientpp/update`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            id: patientId,
             patient_name: userName,
             contact_number: contactNumber,
             admission_date: admissionDate,
@@ -74,7 +77,7 @@ export default function UpdatePatients({ open, setOpen, data }) {
         setLoading(false);
         alert("Patient update successfuly");
         setOpen(false);
-        // window.location.reload();
+        window.location.reload();
       } catch (error) {
         setLoading(false);
         console.error("Error:", error);
@@ -295,7 +298,9 @@ export default function UpdatePatients({ open, setOpen, data }) {
                         type="submit"
                         className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
                       >
-                        Update User
+                        {employeeId == 2
+                          ? "Update patient personal particulars"
+                          : "Update medical details"}
                       </button>
                     )}
 

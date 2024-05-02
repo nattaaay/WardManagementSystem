@@ -92,7 +92,7 @@ export default function AddNewTeam({ open, setOpen, fetchUsers }) {
                         value={userName}
                         onChange={(e) => setUserName(e.target.value)}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="lovedoctor123"
+                        placeholder="Dr. Dre"
                       />
                     </div>
                   </div>
@@ -107,7 +107,7 @@ export default function AddNewTeam({ open, setOpen, fetchUsers }) {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="password"
+                        placeholder="Enter password for user"
                       />
                     </div>
                   </div>
@@ -122,7 +122,7 @@ export default function AddNewTeam({ open, setOpen, fetchUsers }) {
                         value={contactNumber}
                         onChange={(e) => setContactNumber(e.target.value)}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="12345678"
+                        placeholder="Primary contact number"
                       />
                     </div>
                   </div>

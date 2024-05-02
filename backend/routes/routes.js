@@ -41,7 +41,7 @@ router.post("/api/wmt/patient/discharge/pp/:id", deletePatient);
 
 router.get("/api/wmt/patient/wards", fetchAllWards);
 
-router.post("/api/wmt/patientpp", updatePatient);
+router.post("/api/wmt/patientpp/update", updatePatient);
 
 router.get("/api/mt/patientpp", fetchAllMedicalHistory);
 

@@ -107,11 +107,11 @@ export default function Sidebar({ routesNavigation }) {
                       </button>
                     </div>
                   </Transition.Child>
-                  <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4">
+                  <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gradient-to-r from-orange-400 to-violet-600 px-6 pb-4">
                     <div className="flex h-16 shrink-0 items-center">
                       <img
                         className="h-8 w-auto"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=white"
+                        src="https://media.istockphoto.com/id/1421823625/vector/circle-with-gold-wings-inside.jpg?s=612x612&w=0&k=20&c=PBOKbpem1SA1CPXpqH2pgnL2d5wQFCroHGWgS_40KLE="
                         alt="Your Company"
                       />
                     </div>
@@ -193,11 +193,11 @@ export default function Sidebar({ routesNavigation }) {
 
         {/* Static sidebar for desktop */}
         <div className="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
-          <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-indigo-600 px-6 pb-4">
+          <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-gradient-to-r from-emerald-700 to-blue-900 px-6 pb-4">
             <div className="flex h-16 shrink-0 items-center">
               <img
-                className="h-8 w-auto"
-                src="https://tailwindui.com/img/logos/mark.svg?color=white"
+                className="h-20 w-20 rounded-full bg-gray-50 mr-2"
+                src="https://cdn.pixabay.com/photo/2024/03/02/09/20/ai-generated-8608179_1280.jpg"
                 alt="Your Company"
               />
             </div>
@@ -291,7 +291,12 @@ export default function Sidebar({ routesNavigation }) {
             />
 
             <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-              <form className="relative flex flex-1" action="#" method="GET">
+              <form
+                className="relative flex flex-1"
+                action="#"
+                method="GET"
+                style={{ visibility: "hidden" }}
+              >
                 <label htmlFor="search-field" className="sr-only">
                   Search
                 </label>
@@ -304,8 +309,6 @@ export default function Sidebar({ routesNavigation }) {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
-              </form>
-              <div className="flex items-center gap-x-4 lg:gap-x-6">
                 <button
                   type="button"
                   className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500"
@@ -314,7 +317,8 @@ export default function Sidebar({ routesNavigation }) {
                   <span className="sr-only">View notifications</span>
                   <MagnifyingGlassIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
-
+              </form>
+              <div className="flex items-center gap-x-4 lg:gap-x-6">
                 {/* Separator */}
                 <div
                   className="hidden lg:block lg:h-6 lg:w-px lg:bg-gray-900/10"
@@ -327,7 +331,7 @@ export default function Sidebar({ routesNavigation }) {
                     <span className="sr-only">Open user menu</span>
                     <img
                       className="h-8 w-8 rounded-full bg-gray-50"
-                      src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+                      src="https://lh6.googleusercontent.com/proxy/a_2ARFbiVVirx_wbAKh6EKfVR0cTVlzvovhb8Vgnt8UK3k1JPmCZnQ7wOUbouBX1VtUFITrZQru9qYP32C172uoWC4LsODZHxzOMuuPT_LHIQZYtkNYVInPIb9HR_g7yZ_FzfvOlKG_BaA"
                       alt=""
                     />
                     <span className="hidden lg:flex lg:items-center">

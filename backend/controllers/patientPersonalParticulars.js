@@ -45,7 +45,7 @@ const fetchPatientsWithWards = async (req, res) => {
       md.*
       FROM public."patient-personal-particulars" AS pp
       JOIN public."patients-medical-details" AS md
-      ON pp.ic_number = md.ic_number
+      ON pp.id = md.uuid
       WHERE pp.ward_number = $1;`,
       [wardNumber] // Using parameterized query to prevent SQL injection
     );
@@ -72,10 +72,10 @@ const insertPatients = async (req, res) => {
       medical_notes,
       treatment_plans,
     } = req.body;
-    const patientDischargeDefault = "false";
-    await client.query(
-      //first query
-      `INSERT INTO public."patient-personal-particulars" (patient_name, ic_number, contact_number, ward_number, bed_number, admission_date, discharge_date, discharge_patient) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
+    const patientDischargeDefault = "active";
+
+    const patientPersonalResult = await client.query(
+      `INSERT INTO public."patient-personal-particulars" (patient_name, ic_number, contact_number, ward_number, bed_number, admission_date, discharge_date, discharge_patient) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id`,
       [
         patient_name,
         ic_number,
@@ -87,10 +87,19 @@ const insertPatients = async (req, res) => {
         patientDischargeDefault,
       ]
     );
+
+    const patientId = patientPersonalResult.rows[0].id;
+
     await client.query(
-      //second query
-      `INSERT INTO public."patients-medical-details" (patient_medical_name, medical_history, medical_notes, treatment_plans, ic_number) VALUES ($1, $2, $3, $4, $5)`,
-      [patient_name, medical_history, medical_notes, treatment_plans, ic_number]
+      `INSERT INTO public."patients-medical-details" (patient_medical_name, medical_history, medical_notes, treatment_plans, uuid, ic_number) VALUES ($1, $2, $3, $4, $5, $6)`,
+      [
+        patient_name,
+        medical_history,
+        medical_notes,
+        treatment_plans,
+        patientId,
+        ic_number,
+      ]
     );
 
     res.status(201).send({ statusCode: 200, message: "Successful" });
@@ -106,7 +115,7 @@ const deletePatient = async (req, res) => {
     const { id } = req.params;
     await client.query(
       `UPDATE public."patient-personal-particulars" 
-       SET discharge_patient = 'true'
+       SET discharge_patient = 'discharge'
        WHERE id = $1`,
       [id]
     );
@@ -139,6 +148,7 @@ const fetchAllWards = async (req, res) => {
 const updatePatient = async (req, res) => {
   try {
     const {
+      id,
       patient_name,
       ic_number,
       contact_number,
@@ -153,8 +163,8 @@ const updatePatient = async (req, res) => {
 
     // Check if the patient exists
     const patientExists = await client.query(
-      `SELECT * FROM public."patient-personal-particulars" WHERE ic_number = $1`,
-      [ic_number]
+      `SELECT * FROM public."patient-personal-particulars" WHERE id = $1`,
+      [id]
     );
 
     if (patientExists.rows.length === 0) {
@@ -170,8 +180,9 @@ const updatePatient = async (req, res) => {
            ward_number = $3, 
            bed_number = $4, 
            admission_date = $5, 
-           discharge_date = $6 
-       WHERE ic_number = $7`,
+           discharge_date = $6 ,
+           ic_number = $7
+       WHERE id = $8`,
       [
         patient_name,
         contact_number,
@@ -180,6 +191,7 @@ const updatePatient = async (req, res) => {
         admission_date,
         discharge_date,
         ic_number,
+        id,
       ]
     );
 
@@ -189,8 +201,8 @@ const updatePatient = async (req, res) => {
            medical_history = $2, 
            medical_notes = $3, 
            treatment_plans = $4 
-       WHERE ic_number = $5`,
-      [patient_name, medical_history, medical_notes, treatment_plans, ic_number]
+       WHERE uuid = $5`,
+      [patient_name, medical_history, medical_notes, treatment_plans, id]
     );
 
     res.status(200).send({
