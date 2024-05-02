@@ -38,7 +38,7 @@ export default function AddPatient({ open, setOpen }) {
             patient_name: userName,
             contact_number: contactNumber,
             admission_date: admissionDate,
-            discharge_date: dischargeDate,
+            discharge_date: "1088-02-02",
             ic_number: icNumber,
             ward_number: wardNumber,
             bed_number: bedNumber,
@@ -157,13 +157,6 @@ export default function AddPatient({ open, setOpen }) {
                           <option key={e.id}>{e.ward_number}</option>
                         ))}
                       </select>
-                      {/* <input
-                        type="text"
-                        value={wardNumber}
-                        onChange={(e) => setWardNumber(e.target.value)}
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="Select Ward"
-                      /> */}
                     </div>
                   </div>
 
@@ -182,13 +175,6 @@ export default function AddPatient({ open, setOpen }) {
                           <option key={e.id}>{e.bed_number}</option>
                         ))}
                       </select>
-                      {/* <input
-                        type="text"
-                        value={bedNumber}
-                        onChange={(e) => setBedNumber(e.target.value)}
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="Select Bed"
-                      /> */}
                     </div>
                   </div>
 
@@ -203,21 +189,6 @@ export default function AddPatient({ open, setOpen }) {
                         onChange={(e) => setAdmissionDate(e.target.value)}
                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                         placeholder="Admission Date"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="mt-3">
-                    <label className="block text-sm font-medium leading-6 text-gray-900">
-                      Discharge date
-                    </label>
-                    <div className="mt-1">
-                      <input
-                        type="date"
-                        value={dischargeDate}
-                        onChange={(e) => setDischargeDate(e.target.value)}
-                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                        placeholder="12345678"
                       />
                     </div>
                   </div>
@@ -277,7 +248,7 @@ export default function AddPatient({ open, setOpen }) {
                         type="submit"
                         className="inline-flex w-full justify-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 sm:ml-3 sm:w-auto"
                       >
-                        Add User
+                        Add patient
                       </button>
                     )}
 

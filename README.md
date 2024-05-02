@@ -1,5 +1,3 @@
-☐ App Title: Contains a description of what the app does and optional background info.
-
 Title: Ward Management System
 
 This app is designed with one thing in mind - effortless management of a patient's registration, admission and discharge to and from a hospital.
@@ -9,6 +7,14 @@ There are three main users of this application.
 User 1 - Admin
 User 2 - Ward Management Team
 User 3 - Medical Team
+
+Each user has a specific role and cannot access information that is not relevant to their role.
+
+First and foremost, only the admin can create a new user and assign them to a role. Users are not allowed to register themselves.
+The main role of the Ward Management Team is to register the patients and assign them to a ward and bed and later discharge them.
+The main role of the Medical Team is to update the patient's medical information.
+
+☐ App Description: A brief description of the app.
 
 ☐ Screenshot(s): A screenshot of your app's landing page and any other screenshots of interest.
 

@@ -1,8 +1,5 @@
 const client = require("../database");
 
-//fetch all patient records
-//join two tables (patient personal particulars & patient medical details)
-//return an array of objects
 const fetchAllPatients = async (req, res) => {
   try {
     const roles = await client.query(
@@ -31,9 +28,8 @@ const fetchAllPatients = async (req, res) => {
 
 const fetchPatientsWithWards = async (req, res) => {
   try {
-    const { wardNumber } = req.params; // Assuming ward number is passed as a parameter
+    const { wardNumber } = req.params;
     const roles = await client.query(
-      //most difficult query. joining two tables. pp.id and md.uuid
       `SELECT pp.id, 
       pp.patient_name, 
       pp.contact_number, 
@@ -48,7 +44,7 @@ const fetchPatientsWithWards = async (req, res) => {
       JOIN public."patients-medical-details" AS md
       ON pp.id = md.uuid
       WHERE pp.ward_number = $1;`,
-      [wardNumber] // Using parameterized query to prevent SQL injection
+      [wardNumber]
     );
     res
       .status(200)
@@ -58,48 +54,6 @@ const fetchPatientsWithWards = async (req, res) => {
     res.status(500).send(error.message);
   }
 };
-
-// const insertPatients = async (req, res) => {
-//   try {
-//     const {
-//       patient_name,
-//       ic_number,
-//       contact_number,
-//       ward_number,
-//       bed_number,
-//       admission_date,
-//       discharge_date,
-//       medical_history,
-//       medical_notes,
-//       treatment_plans,
-//     } = req.body;
-//     const patientDischargeDefault = "false";
-//     await client.query(
-//       //first query
-//       `INSERT INTO public."patient-personal-particulars" (patient_name, ic_number, contact_number, ward_number, bed_number, admission_date, discharge_date, discharge_patient) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
-//       [
-//         patient_name,
-//         ic_number,
-//         contact_number,
-//         ward_number,
-//         bed_number,
-//         admission_date,
-//         discharge_date,
-//         patientDischargeDefault,
-//       ]
-//     );
-//     await client.query(
-//       //second query
-//       `INSERT INTO public."patients-medical-details" (patient_medical_name, medical_history, medical_notes, treatment_plans, ic_number) VALUES ($1, $2, $3, $4, $5)`,
-//       [patient_name, medical_history, medical_notes, treatment_plans, ic_number]
-//     );
-
-//     res.status(201).send({ statusCode: 200, message: "Successful" });
-//   } catch (error) {
-//     console.error(error);
-//     res.status(500).send(error.message);
-//   }
-// };
 
 const insertPatients = async (req, res) => {
   try {
@@ -152,7 +106,6 @@ const insertPatients = async (req, res) => {
   }
 };
 
-//"delete" patient. change the discharge_patient to true
 const deletePatient = async (req, res) => {
   try {
     const { id } = req.params;
@@ -204,7 +157,6 @@ const updatePatient = async (req, res) => {
       treatment_plans,
     } = req.body;
 
-    // Check if the patient exists
     const patientExists = await client.query(
       `SELECT * FROM public."patient-personal-particulars" WHERE id = $1`,
       [id]

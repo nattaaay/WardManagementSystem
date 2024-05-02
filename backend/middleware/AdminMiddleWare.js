@@ -1,5 +1,4 @@
 require("dotenv").config();
-//fetch all users from the 'employees' table in the db
 const jwt = require("jsonwebtoken");
 
 const JWT_SECRET = process.env.JWT_SECRET;

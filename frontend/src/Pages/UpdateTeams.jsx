@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { BASE_URL } from "../constant/constant";
@@ -36,8 +35,6 @@ export default function UpdateTeams({ open, setOpen, updateData, fetchUsers }) {
       alert("Team member update successfully");
       setOpen(false);
       fetchUsers();
-
-      //   console.log(data);
     } catch (error) {
       console.error("Error:", error);
     }

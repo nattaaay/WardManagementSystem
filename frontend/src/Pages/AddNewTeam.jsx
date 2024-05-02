@@ -33,10 +33,8 @@ export default function AddNewTeam({ open, setOpen, fetchUsers }) {
 
       setLoading(false);
       alert("Team member added successfully");
-      //   const data = await response.json();
-      setOpen(false);
 
-      //   console.log(data);
+      setOpen(false);
 
       fetchUsers();
       setUserName("");

@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { Fragment, useRef, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { BASE_URL, allBeds, allWards } from "../constant/constant";
@@ -33,20 +32,26 @@ export default function UpdatePatients({ open, setOpen, data }) {
 
   const [loading, setLoading] = useState("");
 
+  console.log(data);
+
   useEffect(() => {
+    const formattedAdmissionDate = data?.admission_date
+      ? new Date(data.admission_date).toISOString().split("T")[0]
+      : "";
+
     setUserName(data?.patient_name || "");
     setIcNumber(data?.ic_number || "");
     setContactNumber(data?.contact_number || "");
     setBedNumber(data?.bed_number || "");
     setWardNumber(data?.ward_number || "");
-    setAdmissionDate(data?.admission_date || "");
-    setDischargeDate(data?.discharge_date || "");
+    setAdmissionDate(formattedAdmissionDate || "");
+    setDischargeDate("");
     setMedicalHistory(data?.medical_history || "");
     setMedicalNotes(data?.medical_notes || "");
     setTreatmentPlans(data?.treatment_plans || "");
     setPatientId(data?.uuid || "");
   }, [data]);
-
+  console.log(data);
   const handleAddNewUser = async (event) => {
     event.preventDefault();
     if (wardNumber.length > 10) {
@@ -80,7 +85,7 @@ export default function UpdatePatients({ open, setOpen, data }) {
         setLoading(false);
         alert("Patient update successfuly");
         setOpen(false);
-        // window.location.reload();
+        window.location.reload();
       } catch (error) {
         setLoading(false);
         console.error("Error:", error);

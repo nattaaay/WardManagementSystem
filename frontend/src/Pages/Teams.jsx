@@ -13,7 +13,6 @@ export default function Teams() {
   const [filteredUsers, setFilteredUsers] = useState([]);
 
   useEffect(() => {
-    // Filter users based on search query
     const filtered = users.filter((user) =>
       user.username.toLowerCase().includes(search.toLowerCase())
     );
@@ -21,25 +20,6 @@ export default function Teams() {
   }, [search, users]);
 
   const token = localStorage.getItem("token");
-
-  // const fetchUsers = async () => {
-  //   try {
-  //     const response = await fetch(`${BASE_URL}/getUsers`, {
-  //       headers: {
-  //         Authorization: `Bearer ${token}`,
-  //       },
-  //     });
-  //     if (!response.ok) {
-  //       throw new Error("Network response was not ok");
-  //     }
-  //     const data = await response.json();
-  //     // No need for additional changes here since setUsers is not asynchronous
-  //     setUsers(data.data);
-  //     console.log(data);
-  //   } catch (error) {
-  //     console.error("There was a problem with the fetch operation:", error);
-  //   }
-  // };
 
   const fetchUsers = async () => {
     try {

@@ -1,6 +1,5 @@
 const client = require("../database");
 require("dotenv").config();
-//fetch all users from the 'employees' table in the db
 
 const getUsers = async (req, res) => {
   try {
@@ -16,7 +15,6 @@ const getUsers = async (req, res) => {
   }
 };
 
-//delete a user from the db
 const deleteUser = async (req, res) => {
   try {
     const userId = req.params.id;
@@ -29,7 +27,7 @@ const deleteUser = async (req, res) => {
     res.status(500).send("Internal Server Error");
   }
 };
-//updating a user's information  //injection thing. to find out about it later.
+
 const updateUser = async (req, res) => {
   try {
     const { username, employees_role_id, contact_number, id } = req.body;

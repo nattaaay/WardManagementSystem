@@ -17,29 +17,6 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
 
   const token = localStorage.getItem("token");
 
-  // const fetchUsers = () => {
-  //   fetch(`${BASE_URL}/api/wmt/patientpp/wards/${wardNumber}`, {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //     },
-  //   })
-  //     .then((response) => {
-  //       //async await
-  //       if (!response.ok) {
-  //         throw new Error("Network response was not ok");
-  //       }
-  //       return response.json();
-  //     })
-  //     .then((data) => {
-  //       //async await
-  //       setUsers(data.data);
-  //       console.log(data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("There was a problem with the fetch operation:", error);
-  //     });
-  // };
-
   const fetchUsers = async () => {
     try {
       const response = await fetch(
@@ -66,7 +43,6 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
     fetchUsers();
   }, [wardNumber]);
 
-  //discharge button function
   const handleDischarge = async (patientId) => {
     console.log("patientId", patientId);
     try {
@@ -83,8 +59,9 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
 
       const data = await response.json();
       alert("Discharge patient successfuly");
+      window.location.reload();
 
-      console.log("test", data); // Log success message
+      console.log("test", data);
     } catch (error) {
       console.error("Error:", error.message);
     }
@@ -95,6 +72,8 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
     setUpdateModalOpen(true);
   };
 
+  console.log("hello", users);
+
   return (
     <>
       <div className="px-4 sm:px-6 lg:px-8 mt-5">
@@ -104,8 +83,7 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
               Patient Personal Particulars
             </h1>
             <p className="mt-2 text-sm text-gray-700">
-              A list of all the temas in your account including their user name,
-              contact number, and role.
+              List of patients currently warded and have been discharged.
             </p>
           </div>
           <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
@@ -234,8 +212,9 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
                             moment(person.admission_date).format("Do MMM YY")}
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                          {person.discharge_date &&
-                            moment(person.discharge_date).format("Do MMM YY")}
+                          {person.discharge_date === "1088-02-02"
+                            ? null
+                            : moment(person.discharge_date).format("Do MMM YY")}
                         </td>
                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
                           <button
