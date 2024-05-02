@@ -7,11 +7,18 @@ This app is designed with one thing in mind - effortless management of a patient
 There are three main users of this application.
 
 User 1 - Admin
---> Th
+User 2 - Ward Management Team
+User 3 - Medical Team
 
 ☐ Screenshot(s): A screenshot of your app's landing page and any other screenshots of interest.
 
 ☐ Technologies Used: List of the technologies used.
+
+Postgres SQL
+Express
+React
+Node
+Tailwind
 
 ☐ Getting Started: That Includes:
 

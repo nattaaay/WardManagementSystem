@@ -7,6 +7,8 @@ export default function UpdatePatients({ open, setOpen, data }) {
   const employeeId = localStorage.getItem("employees_role");
   const cancelButtonRef = useRef(null);
 
+  const token = localStorage.getItem("token");
+
   const [userName, setUserName] = useState(data?.patient_name || "");
   const [icNumber, setIcNumber] = useState(data?.ic_number || "");
   const [contactNumber, setContactNumber] = useState(
@@ -57,6 +59,7 @@ export default function UpdatePatients({ open, setOpen, data }) {
         await fetch(`${BASE_URL}/api/wmt/patientpp/update`, {
           method: "POST",
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
@@ -77,7 +80,7 @@ export default function UpdatePatients({ open, setOpen, data }) {
         setLoading(false);
         alert("Patient update successfuly");
         setOpen(false);
-        window.location.reload();
+        // window.location.reload();
       } catch (error) {
         setLoading(false);
         console.error("Error:", error);

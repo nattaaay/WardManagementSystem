@@ -6,6 +6,8 @@ import { BASE_URL } from "../constant/constant";
 export default function UpdateTeams({ open, setOpen, updateData, fetchUsers }) {
   const cancelButtonRef = useRef(null);
 
+  const token = localStorage.getItem("token");
+
   const [userName, setUserName] = useState(updateData?.username);
   const [contactNumber, setContactNumber] = useState(
     updateData?.contact_number
@@ -19,6 +21,7 @@ export default function UpdateTeams({ open, setOpen, updateData, fetchUsers }) {
       await fetch(`${BASE_URL}/updateUser`, {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({

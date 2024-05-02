@@ -58,7 +58,14 @@ const Login = async (req, res) => {
     }
 
     //generating a JWT with the 'username' of the logged-in user
-    const token = jwt.sign({ username: user.rows[0].username }, JWT_SECRET);
+    const token = jwt.sign(
+      {
+        username: user.rows[0].username,
+        employees_role: user.rows[0].employees_role,
+        id: user.rows[0].id,
+      },
+      JWT_SECRET
+    );
 
     res.json({
       statusCode: 200,

@@ -17,6 +17,7 @@ export default function AddPatient({ open, setOpen }) {
   const [treatmentPlans, setTreatmentPlans] = useState("");
 
   const [loading, setLoading] = useState("");
+  const token = localStorage.getItem("token");
 
   const handleAddNewUser = async (event) => {
     event.preventDefault();
@@ -30,6 +31,7 @@ export default function AddPatient({ open, setOpen }) {
         await fetch(`${BASE_URL}/api/wmt/patientpp`, {
           method: "POST",
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({

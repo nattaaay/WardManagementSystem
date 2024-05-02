@@ -15,21 +15,51 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
   const [updateModalOpen, setUpdateModalOpen] = useState(false);
   const [updateData, setUpdateData] = useState([]);
 
-  const fetchUsers = () => {
-    fetch(`${BASE_URL}/api/wmt/patientpp/wards/${wardNumber}`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
+  const token = localStorage.getItem("token");
+
+  // const fetchUsers = () => {
+  //   fetch(`${BASE_URL}/api/wmt/patientpp/wards/${wardNumber}`, {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       //async await
+  //       if (!response.ok) {
+  //         throw new Error("Network response was not ok");
+  //       }
+  //       return response.json();
+  //     })
+  //     .then((data) => {
+  //       //async await
+  //       setUsers(data.data);
+  //       console.log(data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("There was a problem with the fetch operation:", error);
+  //     });
+  // };
+
+  const fetchUsers = async () => {
+    try {
+      const response = await fetch(
+        `${BASE_URL}/api/wmt/patientpp/wards/${wardNumber}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-        return response.json();
-      })
-      .then((data) => {
-        setUsers(data.data);
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error("There was a problem with the fetch operation:", error);
-      });
+      );
+      if (!response.ok) {
+        const errorMessage = `Error`;
+        throw new Error(errorMessage);
+      }
+      const data = await response.json();
+      setUsers(data.data);
+      console.log(data);
+    } catch (error) {
+      console.error("There was a problem with the fetch operation:", error);
+    }
   };
 
   useEffect(() => {
@@ -38,13 +68,14 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
 
   //discharge button function
   const handleDischarge = async (patientId) => {
-    console.log(patientId);
+    console.log("patientId", patientId);
     try {
       const response = await fetch(
         `${BASE_URL}/api/wmt/patient/discharge/pp/${patientId}`,
         {
           method: "POST",
           headers: {
+            Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
         }
@@ -184,10 +215,18 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
                           {person.bed_number}
                         </td>
                         <td className="whitespace-nowrap px-3 py-5 text-sm text-gray-500">
-                          <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
+                          <span
+                            className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium   
+                          ${
+                            person.discharge_patient == "discharge"
+                              ? "text-red-700 bg-red-50"
+                              : "text-green-700 bg-green-50"
+                          }
+                           ring-1 ring-inset ring-green-600/20`}
+                          >
                             {person.discharge_patient == "discharge"
-                              ? "Discharge"
-                              : "Active"}
+                              ? "Discharged"
+                              : "In ward"}
                           </span>
                         </td>
                         <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
@@ -208,12 +247,15 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
                           >
                             Medical details
                           </button>
-                          <button
-                            className="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 mr-5"
-                            onClick={() => handleDischarge(person.uuid)}
-                          >
-                            Discharge
-                          </button>
+                          {person.discharge_patient == "discharge" ? null : (
+                            <button
+                              className="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 mr-5"
+                              onClick={() => handleDischarge(person.uuid)}
+                            >
+                              Discharge
+                            </button>
+                          )}
+
                           <button
                             className="rounded-md bg-green-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
                             onClick={() => handleUpdate(person)}

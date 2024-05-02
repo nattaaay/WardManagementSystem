@@ -24,11 +24,12 @@ export default function Login() {
 
       const data = await response.json();
 
-      console.log(data);
+      console.log("login", data);
 
       if (data && data.statusCode === 200) {
         localStorage.setItem("username", data.user[0].username);
         localStorage.setItem("employees_role", data.user[0].employees_role);
+        localStorage.setItem("token", data.token);
         setLoading(false);
 
         console.log(data.user[0].employees_role == 2);

@@ -16,37 +16,54 @@ const {
   fetchAllMedicalHistory,
   deletePatientMedicalHistory,
 } = require("../controllers/patientMedicalHistory");
+const { authAndFetchUsers } = require("../middleware/AdminMiddleWare");
+const { medicalMiddleWare } = require("../middleware/MedicalMiddleWare");
+const { wardMiddleWare } = require("../middleware/WardMiddleWare");
 
 const router = express.Router();
 
 router.post("/login", Login);
 
-router.post("/register", Register);
+router.post("/register", authAndFetchUsers, Register);
 
-router.get("/roles", Roles);
+//doubt not using
+// router.get("/roles", Roles);
 
-router.get("/getUsers", getUsers);
+router.get("/getUsers", authAndFetchUsers, getUsers);
 
-router.delete("/deleteUser/:id", deleteUser);
+router.delete("/deleteUser/:id", authAndFetchUsers, deleteUser);
 
-router.post("/updateUser", updateUser);
+router.post("/updateUser", authAndFetchUsers, updateUser);
 
-router.get("/api/wmt/patientpp", fetchAllPatients);
+//doubt not using
+// router.get("/api/wmt/patientpp", medicalMiddleWare, fetchAllPatients);
 
-router.get("/api/wmt/patientpp/wards/:wardNumber", fetchPatientsWithWards);
+router.get(
+  "/api/wmt/patientpp/wards/:wardNumber",
+  medicalMiddleWare,
+  fetchPatientsWithWards
+);
 
-router.post("/api/wmt/patientpp", insertPatients);
+router.post("/api/wmt/patientpp", medicalMiddleWare, insertPatients);
 
-router.post("/api/wmt/patient/discharge/pp/:id", deletePatient);
+router.post(
+  "/api/wmt/patient/discharge/pp/:id",
+  medicalMiddleWare,
+  deletePatient
+);
 
-router.get("/api/wmt/patient/wards", fetchAllWards);
+// router.get("/api/wmt/patient/wards", fetchAllWards);
 
-router.post("/api/wmt/patientpp/update", updatePatient);
+router.post("/api/wmt/patientpp/update", medicalMiddleWare, updatePatient);
 
-router.get("/api/mt/patientpp", fetchAllMedicalHistory);
+router.get("/api/mt/patientpp", wardMiddleWare, fetchAllMedicalHistory);
 
-router.post("/api/mt/patientpp", insertPatientsMedicalDetails);
+router.post("/api/mt/patientpp", wardMiddleWare, insertPatientsMedicalDetails);
 
-router.delete("/api/wmt/patientpp/:id", deletePatientMedicalHistory);
+router.delete(
+  "/api/wmt/patientpp/:id",
+  wardMiddleWare,
+  deletePatientMedicalHistory
+);
 
 module.exports = router;

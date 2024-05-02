@@ -5,6 +5,8 @@ import { BASE_URL } from "../constant/constant";
 export default function AddNewTeam({ open, setOpen, fetchUsers }) {
   const cancelButtonRef = useRef(null);
 
+  const token = localStorage.getItem("token");
+
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [contactNumber, setContactNumber] = useState("");
@@ -18,6 +20,7 @@ export default function AddNewTeam({ open, setOpen, fetchUsers }) {
       await fetch(`${BASE_URL}/register`, {
         method: "POST",
         headers: {
+          Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
         body: JSON.stringify({

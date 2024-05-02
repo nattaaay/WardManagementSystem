@@ -197,7 +197,7 @@ export default function Sidebar({ routesNavigation }) {
             <div className="flex h-16 shrink-0 items-center">
               <img
                 className="h-20 w-20 rounded-full bg-gray-50 mr-2"
-                src="https://cdn.pixabay.com/photo/2024/03/02/09/20/ai-generated-8608179_1280.jpg"
+                src="https://media.istockphoto.com/id/1421823625/vector/circle-with-gold-wings-inside.jpg?s=612x612&w=0&k=20&c=PBOKbpem1SA1CPXpqH2pgnL2d5wQFCroHGWgS_40KLE="
                 alt="Your Company"
               />
             </div>

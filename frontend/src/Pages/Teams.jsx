@@ -20,14 +20,39 @@ export default function Teams() {
     setFilteredUsers(filtered);
   }, [search, users]);
 
+  const token = localStorage.getItem("token");
+
+  // const fetchUsers = async () => {
+  //   try {
+  //     const response = await fetch(`${BASE_URL}/getUsers`, {
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //       },
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
+  //     const data = await response.json();
+  //     // No need for additional changes here since setUsers is not asynchronous
+  //     setUsers(data.data);
+  //     console.log(data);
+  //   } catch (error) {
+  //     console.error("There was a problem with the fetch operation:", error);
+  //   }
+  // };
+
   const fetchUsers = async () => {
     try {
-      const response = await fetch(`${BASE_URL}/getUsers`);
+      const response = await fetch(`${BASE_URL}/getUsers`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (!response.ok) {
-        throw new Error("Network response was not ok");
+        const errorMessage = `Error ${response.status}: ${response.statusText}`;
+        throw new Error(errorMessage);
       }
       const data = await response.json();
-      // No need for additional changes here since setUsers is not asynchronous
       setUsers(data.data);
       console.log(data);
     } catch (error) {
@@ -43,6 +68,9 @@ export default function Teams() {
     try {
       const response = await fetch(`${BASE_URL}/deleteUser/${id}`, {
         method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       if (!response.ok) {
         throw new Error("Failed to delete user");
@@ -53,7 +81,6 @@ export default function Teams() {
       console.log(error);
     }
   };
-
   const handleUpdate = (user) => {
     setUpdateData(user);
     setUpdateOpen(true);
@@ -67,8 +94,7 @@ export default function Teams() {
             Teams
           </h1>
           <p className="mt-2 text-sm text-gray-700">
-            A list of all the temas in your account including their user name,
-            contact number, and role.
+            List of registered users.
           </p>
         </div>
 
