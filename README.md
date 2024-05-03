@@ -1,33 +1,88 @@
-Title: Ward Management System
+# Title: PernPuff (Ward Management System)
 
-This app is designed with one thing in mind - effortless management of a patient's registration, admission and discharge to and from a hospital.
+This app is designed with one thing in mind - effortless management of a patient's registration, admission and discharge, medical information in a hospital.
+<br>
 
-There are three main users of this application.
+#
 
-User 1 - Admin
+There are three main users of this application. Each user has a specific role and cannot access information that is not relevant to their role.
+<br>
+
+Role - Admin
+<br>
+Task - Create and maintain users.
+<br>
+<br>
 User 2 - Ward Management Team
+<br>
+Task - Register patients, assign them to a ward and bed, and discharge them.
+<br>
+<br>
 User 3 - Medical Team
+<br>
+Task - Update patient's medical information.
 
-Each user has a specific role and cannot access information that is not relevant to their role.
+#
 
-First and foremost, only the admin can create a new user and assign them to a role. Users are not allowed to register themselves.
-The main role of the Ward Management Team is to register the patients and assign them to a ward and bed and later discharge them.
-The main role of the Medical Team is to update the patient's medical information.
+<br>
+<br>
 
-☐ App Description: A brief description of the app.
+# Screenshots
 
-☐ Screenshot(s): A screenshot of your app's landing page and any other screenshots of interest.
+### Here are some screenshots to demonstrate the basis of the app.
 
-☐ Technologies Used: List of the technologies used.
+Landing Page
+![landingPage](./screenshots/LandingPage.png)
 
-Postgres SQL
-Express
-React
-Node
-Tailwind
+List of registered users
+![registeredUsersList](./screenshots//RegisteredUsersList.png)
 
-☐ Getting Started: That Includes:
+Adding and update patient's personal details
+![addUpdateTeam](./screenshots/AddAndUpdatePersonalDetails.gif)
 
-A link to the deployed app
-A link to the public board used for the project's planning that includes user stories, wireframes & an ERD.
-☐ Next Steps: Planned future enhancements (icebox items).
+# Main Technologies Used
+
+- Postgresql
+- Express
+- React JS
+- Node JS
+- TailwindCSS
+  <br>
+  <br>
+
+# Dependencies
+
+## Backend
+
+- bcrypt
+- body-parser
+- cors
+- dotenv
+- express
+- jsonwebtoken
+- nodemon
+- pg
+
+#
+
+## Frontend
+
+- dotenv
+- moment
+- react
+- react-dom
+- react-router-dom
+
+#
+
+<br>
+
+# Next Steps
+
+- Adding of more data in users, patient personal particulars and patient medical details
+
+- Adding of randomized inspirational quotes or positive healthcare news to be displayed every minute or so. Perhaps fetched from an API somewhere.
+- When security has been implemented well, perhaps there could be a user who has access to everything and anything.
+- A system to track every single activity from every employee (e.g updates - by Dr. Koh)
+
+#
