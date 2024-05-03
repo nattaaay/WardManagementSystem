@@ -215,6 +215,14 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
                             : moment(person.discharge_date).format("Do MMM YY")}
                         </td>
                         <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0">
+                          {person.discharge_patient == "discharge" ? null : (
+                            <button
+                              className="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 mr-5"
+                              onClick={() => handleDischarge(person.uuid)}
+                            >
+                              Discharge
+                            </button>
+                          )}
                           <button
                             className="rounded-md bg-indigo-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 mr-5"
                             onClick={() => {
@@ -224,14 +232,6 @@ const PatientPersonalParticulars = ({ wardNumber }) => {
                           >
                             Medical details
                           </button>
-                          {person.discharge_patient == "discharge" ? null : (
-                            <button
-                              className="rounded-md bg-red-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600 mr-5"
-                              onClick={() => handleDischarge(person.uuid)}
-                            >
-                              Discharge
-                            </button>
-                          )}
 
                           <button
                             className="rounded-md bg-green-600 px-2.5 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
